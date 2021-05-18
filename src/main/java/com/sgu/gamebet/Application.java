@@ -77,6 +77,76 @@ public class Application {
         printWithSeparator(pTiPlusOne, separator);
         System.out.println("For q");
         printWithSeparator(qTiPlusOne, separator);
+
+        //u_t(x, a) = Mv_{t + 1}
+        List<Double> mathExpectation = new ArrayList<>();
+        for (int i = 0; i < pTiPlusOne.size(); ++i) {
+            if (pTiPlusOne.get(i) == separator) {
+                mathExpectation.add(separator);
+            } else {
+                mathExpectation.add(pTiPlusOne.get(i) * p + qTiPlusOne.get(i) * q);
+            }
+        }
+
+        System.out.println("MathExpectation");
+        printWithSeparator(mathExpectation, separator);
+        System.out.println("");
+
+        //v_t = max u_t(x, a)
+        List<Double> max = new ArrayList<>();
+        double maxValue = 0.0;
+        for (int i = 0; i < mathExpectation.size(); ++i) {
+            if (mathExpectation.get(i) == separator) {
+                max.add(maxValue);
+//                max.add(separator);
+                maxValue = 0.0;
+            } else if (mathExpectation.get(i) > maxValue) {
+                maxValue = mathExpectation.get(i);
+            }
+        }
+        System.out.println("MAX");
+        printWithSeparator(max, separator);
+        System.out.println("");
+
+        //strategy
+        List<Double> strategy = new ArrayList<>();
+        int maxCounter = 0;
+        int counter = 0;
+        for (int i = 0; i < mathExpectation.size(); ++i) {
+//            System.out.println("MAX EL " + max.get(maxCounter));
+//            System.out.println("MathEXP El " + mathExpectation.get(i));
+            if (mathExpectation.get(i) == separator) {
+//                System.out.println("STEP");
+                strategy.add(separator);
+                maxCounter++;
+                counter = 0;
+            } else if (mathExpectation.get(i).equals(max.get(maxCounter))) {
+                strategy.add(states[counter]);
+                counter++;
+            } else {
+                counter++;
+            }
+        }
+        System.out.println("Strategy");
+        printWithSeparator(strategy, separator);
+        System.out.println("");
+        //new r(x)
+        double border = 0.0;
+        xVal = new ArrayList<>();
+        vKeyByX = new ArrayList<>();
+        xVal.add(0.0);
+        vKeyByX.add(0.0);
+        for (int i = 0; i < max.size(); ++i) {
+            if (max.get(i) > border) {
+                xVal.add(states[i]);
+                vKeyByX.add(max.get(i));
+                border = max.get(i);
+            }
+        }
+        System.out.println("NEW r(x)");
+        printWithSeparator(xVal, separator);
+        System.out.println("");
+        printWithSeparator(vKeyByX, separator);
     }
 
     private static void printWithSeparator(List<Double> list, double separator) {
