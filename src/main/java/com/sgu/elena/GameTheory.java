@@ -5,6 +5,8 @@ import java.util.Scanner;
 
 public class GameTheory {
 
+    private static double maxV = 0;
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         //2
@@ -27,19 +29,42 @@ public class GameTheory {
         for (int i = 0; i < marketNum; i++) {
             arrayK[i] = scanner.nextDouble();
         }
-//        for (int i = 0; i < marketNum; i++) {
-//            int m = i + 1;
-//            int[] twinS = Arrays.copyOf(arrayS, arrayS.length);
-//            print(twinS, twinS.length);
-//            while (nextSet(twinS, twinS.length, m)) {
-//                print(twinS, twinS.length);
-//            }
-//        }
-
-        while (nextSet(arrayS, arrayS.length, 3)) {
-            print(arrayS, 3);
+        for (int i = 0; i < marketNum; i++) {
+            int m = i + 1;
+//            System.out.println("M is " + m);
+            int[] twinS = Arrays.copyOf(arrayS, arrayS.length);
+//            System.out.println("result");
+//            print(twinS, m);
+            do {
+                countMaxV(arrayAlpha, arrayK, sumA, m);
+                System.out.println("result");
+                print(twinS, m);
+            } while (nextSet(twinS, twinS.length, m));
         }
+        System.out.println("MAx val is " + maxV);
 
+    }
+
+    private static void countMaxV(double[] arrayAlpha, double[] arrayK, int a, int m) {
+//        double first = sumAlpha(arrayAlpha, m);
+        double first = 0;
+        double second = 0;
+        for (int i = 0; i < m; i++) {
+            first += arrayAlpha[i];
+            second += 1 / arrayK[i];
+        }
+        double result = (first * a - 1) / second;
+        if (result >= maxV){
+            maxV = result;
+        }
+    }
+
+    private static double sumAlpha(double[] arrayAlpha, int m) {
+        double res = 0;
+        for (int i = 0; i < m; i++) {
+            res += arrayAlpha[i];
+        }
+        return res;
     }
 
     private static void print(int[] array, int len) {
