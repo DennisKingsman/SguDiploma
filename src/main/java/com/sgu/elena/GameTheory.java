@@ -87,7 +87,7 @@ public class GameTheory {
         //H()
         double[] hMaxMathEx = new double[sZero.length];
         for (int i = 0; i < hMaxMathEx.length; i++) {
-            double res = arrayK[sZero[i] - 1] * (arrayAlpha[sZero[i] - 1] * totalA - bResources[sZero[i] - 1]);
+            double res = arrayK[sZero[i] - 1] * (arrayAlpha[sZero[i] - 1] * totalA - bResources[i]);
             if (res > 0) {
                 hMaxMathEx[i] = res;
             } else {
