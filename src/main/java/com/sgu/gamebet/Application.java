@@ -1,6 +1,8 @@
 package com.sgu.gamebet;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class Application {
 
@@ -35,6 +37,8 @@ public class Application {
             goodCalc.add(separator);
         }
 
+        System.out.println("");
+        System.out.println("x + a(sigma - 1)");
         System.out.println("For 1 - p");
         printWithSeparator(badCalc, separator);
         System.out.println("");
@@ -74,6 +78,8 @@ public class Application {
                 }
             }
 
+            System.out.println("");
+            System.out.println("v_{t + 1}");
             System.out.println("For p");
             printWithSeparator(pTiPlusOne, separator);
             System.out.println("For q");
@@ -89,6 +95,8 @@ public class Application {
                 }
             }
 
+            System.out.println(" ");
+            System.out.println("M v_{t + 1}");
             System.out.println("MathExpectation");
             printWithSeparator(mathExpectation, separator);
             System.out.println("");
@@ -105,6 +113,8 @@ public class Application {
                     maxValue = mathExpectation.get(i);
                 }
             }
+            System.out.println(" ");
+            System.out.println("v_t");
             System.out.println("MAX");
             printWithSeparator(max, separator);
             System.out.println("");
@@ -142,14 +152,29 @@ public class Application {
                 }
             }
             System.out.println("NEW r(x)");
-            printWithSeparator(xVal, separator);
+            System.out.println("for x in ");
+//            printWithSeparator(xVal, separator);
+            printWithSeparatorAndGap(xVal, separator);
             System.out.println("");
+            System.out.println("r(x) is ");
             printWithSeparator(vKeyByX, separator);
         }
     }
 
+    private static void printWithSeparatorAndGap(List<Double> list, double separator) {
+        int n = list.size();
+        for (int i = 0; i < n; i++) {
+            if (i == n - 1) {
+                System.out.print("[" + list.get(i) + ", c)");
+            } else {
+                System.out.print("[" + list.get(i) + ", " + list.get(i + 1) + ")   ");
+            }
+        }
+        System.out.println(" ");
+    }
+
     private static void printWithSeparator(List<Double> list, double separator) {
-        for (double cacl: list) {
+        for (double cacl : list) {
             if (cacl == separator) {
                 System.out.println("____");
             } else {

@@ -18,7 +18,7 @@ public class PromApplication {
         double b = 0.0;
         double d = 0.0;
         double lambda = 2 * k * sqrt(k) / (3 * k);
-        DecimalFormat decimalFormat = new DecimalFormat( "#.###" );
+        DecimalFormat decimalFormat = new DecimalFormat("#.###");
         for (int i = 0; i < n; i++) {
             d = (pow(lambda * b, 1 / (1 - alpha)) / (1 + pow(lambda * b, 1 / (1 - alpha))));
             System.out.print("d is " + decimalFormat.format(d) + " | ");
