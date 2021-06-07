@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static java.lang.Math.abs;
+
 public class Application {
 
     public static double[] states = new double[]{0, 0.2, 0.4, 0.6, 0.8, 1};
@@ -107,7 +109,6 @@ public class Application {
             for (int i = 0; i < mathExpectation.size(); ++i) {
                 if (mathExpectation.get(i) == separator) {
                     max.add(maxValue);
-//                max.add(separator);
                     maxValue = 0.0;
                 } else if (mathExpectation.get(i) > maxValue) {
                     maxValue = mathExpectation.get(i);
@@ -123,18 +124,22 @@ public class Application {
             List<Double> strategy = new ArrayList<>();
             int maxCounter = 0;
             int counter = 0;
+            double zero = 0;
+            strategy.add(zero);
             for (int i = 0; i < mathExpectation.size(); ++i) {
-                if (mathExpectation.get(i) == separator) {
+                if (mathExpectation.get(i) == separator && i != mathExpectation.size() - 1) {
                     strategy.add(separator);
                     maxCounter++;
                     counter = 0;
-                } else if (mathExpectation.get(i).equals(max.get(maxCounter))) {
+                } else if (eq(mathExpectation.get(i), max.get(maxCounter)) && counter != 0) { //
                     strategy.add(states[counter]);
                     counter++;
                 } else {
                     counter++;
                 }
             }
+            strategy.add(zero);
+            strategy.add(separator);
             System.out.println("Strategy");
             printWithSeparator(strategy, separator);
             System.out.println("");
@@ -161,13 +166,18 @@ public class Application {
         }
     }
 
+    private static boolean eq(double a, double b) {
+        double e = 0.0001;
+        return abs(a - b) < e;
+    }
+
     private static void printWithSeparatorAndGap(List<Double> list, double separator) {
         int n = list.size();
         for (int i = 0; i < n; i++) {
             if (i == n - 1) {
                 System.out.print("[" + list.get(i) + ", c)");
             } else {
-                System.out.print("[" + list.get(i) + ", " + list.get(i + 1) + ")   ");
+                System.out.print("{" + list.get(i) + "} ");
             }
         }
         System.out.println(" ");
