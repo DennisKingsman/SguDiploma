@@ -19,10 +19,8 @@ public class GameTheory {
         System.out.println("Enter total B");
         double totalB = scanner.nextDouble();
         //2
-//        System.out.println("Enter A");
         double sumA = totalA / totalB;
         //1
-//        System.out.println("Enter B");
         int sumB = 1;
         //3
         System.out.println("Enter S number");
